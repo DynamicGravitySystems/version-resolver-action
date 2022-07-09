@@ -8,12 +8,18 @@ async function main() {
 
         const githubToken = core.getInput('github_token')
         const octokit = github.getOctokit(githubToken)
-        const { data: tags } = await octokit.rest.git.getRef({
+        const { data: tags } = await octokit.rest.git.listMatchingRefs({
             ...github.context.repo,
             ref: 'tags'
         });
 
+        const reply = await octokit.rest.repo.tags({
+            ...github.context.repo,
+            per_page: 100
+        })
+
         core.info(JSON.stringify(tags))
+        core.info(JSON.stringify(reply))
 
         core.setOutput('version', '1.0.0')
 

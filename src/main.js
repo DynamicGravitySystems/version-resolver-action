@@ -13,7 +13,7 @@ async function main() {
         //     ref: 'tags'
         // });
 
-        const reply = await octokit.rest.repo.tags({
+        const reply = await octokit.request('GET /repos/{owner}/{repo}/tags', {
             ...github.context.repo,
             per_page: 100
         })

@@ -12,4 +12,4 @@ outputs:
     description: 'The next version based on existing git tags'
 runs:
   using: 'node16'
-  main: 'src/index.js'
+  main: 'index.js'

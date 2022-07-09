@@ -4,7 +4,6 @@ const core = require('@actions/core')
 
 async function main() {
     try {
-
         const githubToken = core.getInput('github_token')
         const octokit = github.getOctokit(githubToken)
         const { data: tags } = await octokit.rest.git.getRef({

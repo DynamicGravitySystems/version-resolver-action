@@ -13,13 +13,13 @@ async function main() {
         //     ref: 'tags'
         // });
 
-        const reply = await octokit.request('GET /repos/{owner}/{repo}/tags', {
+        const { data: tags } = await octokit.request('GET /repos/{owner}/{repo}/tags', {
             ...github.context.repo,
             per_page: 100
         })
 
         // core.info(JSON.stringify(rep1))
-        core.info(JSON.stringify(reply))
+        core.info(JSON.stringify(tags))
 
         core.setOutput('version', '1.0.0')
 

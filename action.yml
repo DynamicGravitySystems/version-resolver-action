@@ -1,0 +1,15 @@
+name: 'Version Resolver'
+description: 'Resolves a semantic version'
+inputs:
+  semantic_release:
+    required: false
+    description: explicitly specify the release type, major, minor, or patch
+  github_token:
+    required: true
+    description: 'A github token used to query the repository for tags'
+outputs:
+  version:
+    description: 'The next version based on existing git tags'
+runs:
+  using: 'node16'
+  main: 'src/index.js'

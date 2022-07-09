@@ -1,0 +1,16 @@
+on: [ push ]
+
+jobs:
+  version_resolver_action_job:
+    runs-on: ubuntu-latest
+    name: Tests version resolver action
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Version Resolver Step
+        id: version
+        uses: ./
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Print Version Result
+        run: echo "Next version is ${{ steps.version.outputs.version }}"

@@ -32,7 +32,9 @@ async function run() {
             }).forEach(t => {
                 console.log(`version: ${t}`)
 
-                let parts = t.split('\.').map(parseInt)
+                let parts = t.split('\.').map(it => {
+                    return parseInt(String(it));
+                })
                 console.log(`Parts: ${JSON.stringify(parts)}`)
 
                 let a = parts.shift()
@@ -59,6 +61,7 @@ async function run() {
             })
 
             console.log(`Resolved highest version ${maj}.${min}.${patch}`)
+
         }
 
         // core.info(JSON.stringify(rep1))

@@ -17,6 +17,7 @@ async function run() {
             ...github.context.repo,
             per_page: 100
         })
+        const releaseType = core.getInput('semantic_release')
 
         if (tags.size === 0) {
             core.info("No tags found for repo, returning default version 1.0.0")
@@ -30,12 +31,9 @@ async function run() {
             tags.map(t => {
                 return t.name.replace("v", "")
             }).forEach(t => {
-                console.log(`version: ${t}`)
-
                 let parts = t.split('\.').map(it => {
                     return parseInt(String(it));
                 })
-                console.log(`Parts: ${JSON.stringify(parts)}`)
 
                 let a = parts.shift()
                 let b = parts.shift()
@@ -61,12 +59,16 @@ async function run() {
             })
 
             console.log(`Resolved highest version ${maj}.${min}.${patch}`)
+            if(releaseType === 'major') {
+                maj++
+            } else if (releaseType === 'patch') {
+                patch++
+            } else {
+                min++;
+            }
 
+            core.setOutput('version', `${maj}.${min}.${patch}`)
         }
-
-        // core.info(JSON.stringify(rep1))
-        core.info(JSON.stringify(tags))
-
 
     } catch (error) {
         core.error(JSON.stringify(error))

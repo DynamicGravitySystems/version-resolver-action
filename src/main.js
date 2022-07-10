@@ -32,11 +32,33 @@ async function run() {
             }).forEach(t => {
                 console.log(`version: ${t}`)
 
-                let parts = t.split('\.').map(p => parseInt(p))
+                let parts = t.split('\.').map(parseInt)
                 console.log(`Parts: ${JSON.stringify(parts)}`)
+
+                let a = parts.shift()
+                let b = parts.shift()
+                let c = parts.shift()
+
+                if (a !== undefined && a > maj) {
+                    maj = a
+                    min = b !== undefined ? b : 0
+                    patch = c !== undefined ? c : 0
+                    return
+                }
+
+                if (b !== undefined && b > min) {
+                    min = b
+                    patch = c !== undefined ? c : 0
+                    return
+                }
+
+                if (c !== undefined && c > patch) {
+                    patch = c
+                }
 
             })
 
+            console.log(`Resolved highest version ${maj}.${min}.${patch}`)
         }
 
         // core.info(JSON.stringify(rep1))

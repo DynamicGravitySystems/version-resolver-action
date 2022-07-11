@@ -8,9 +8,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Version Resolver Step
-        id: version
         uses: ./
+        id: version
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Print Version Result
         run: echo "Next version is ${{ steps.version.outputs.version }}"

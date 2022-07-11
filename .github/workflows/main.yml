@@ -11,6 +11,6 @@ jobs:
         uses: ./
         id: version
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Print Version Result
         run: echo "Next version is ${{ steps.version.outputs.version }}"

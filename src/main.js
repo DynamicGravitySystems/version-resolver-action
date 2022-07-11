@@ -3,7 +3,7 @@ const core = require('@actions/core')
 
 
 async function getTags(page = 1) {
-    const githubToken = core.getInput('github_token')
+    const githubToken = core.getInput('GITHUB_TOKEN')
     const octokit = github.getOctokit(githubToken)
 
     const {data: tags} = await octokit.request('GET /repos/{owner}/{repo}/tags', {

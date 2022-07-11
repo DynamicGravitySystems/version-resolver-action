@@ -7,7 +7,7 @@ inputs:
   semantic_release:
     required: false
     description: 'Explicitly specify the release type, major, minor, or patch. If not specified, minor is assumed'
-  github_token:
+  GITHUB_TOKEN:
     required: true
     description: 'A github token used to query the repository for tags'
 outputs:

@@ -8,16 +8,16 @@ async function run() {
 
         const githubToken = core.getInput('github_token')
         const octokit = github.getOctokit(githubToken)
-        // const rep1 = await octokit.rest.git.listMatchingRefs({
-        //     ...github.context.repo,
-        //     ref: 'tags'
-        // });
 
         const {data: tags} = await octokit.request('GET /repos/{owner}/{repo}/tags', {
             ...github.context.repo,
             per_page: 100
         })
         const releaseType = core.getInput('semantic_release')
+
+
+        console.log('Context:')
+        console.log(JSON.stringify(github.context))
 
         if (tags.size === 0) {
             core.info("No tags found for repo, returning default version 1.0.0")
@@ -55,7 +55,6 @@ async function run() {
                 if (c !== undefined && c > patch) {
                     patch = c
                 }
-
             })
 
             console.log(`Resolved highest version ${maj}.${min}.${patch}`)

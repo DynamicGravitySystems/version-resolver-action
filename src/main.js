@@ -24,7 +24,7 @@ async function run() {
     try {
         core.info('Attempting to resolve tags and version')
 
-        const tags = getTags()
+        const tags = await getTags()
         console.log(JSON.stringify(tags))
 
         const releaseType = core.getInput('semantic_release')

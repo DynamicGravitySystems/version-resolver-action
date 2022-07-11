@@ -25,6 +25,8 @@ async function run() {
         core.info('Attempting to resolve tags and version')
 
         const tags = getTags()
+        console.log(JSON.stringify(tags))
+
         const releaseType = core.getInput('semantic_release')
 
         if (tags.size === 0) {
@@ -38,8 +40,7 @@ async function run() {
             let min = 0
             let patch = 0
 
-            tags.filter(t => t.name.startsWith("v"))
-                .map(t => t.name.replace("v", ""))
+            tags.map(t => t.name.replace("v", ""))
                 .forEach(t => {
                     let parts = t.split('\.').map(it => {
                         return parseInt(String(it));

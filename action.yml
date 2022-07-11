@@ -1,9 +1,12 @@
 name: 'Version Resolver'
 description: 'Resolves a semantic version'
 inputs:
+  init_version:
+    required: false
+    description: 'The initial version to return when the repo has no existing version tags'
   semantic_release:
     required: false
-    description: explicitly specify the release type, major, minor, or patch
+    description: 'Explicitly specify the release type, major, minor, or patch. If not specified, minor is assumed'
   github_token:
     required: true
     description: 'A github token used to query the repository for tags'

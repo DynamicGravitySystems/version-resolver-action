@@ -1,6 +1,19 @@
 const github = require('@actions/github')
 const core = require('@actions/core')
 
+const major = /^(maj(or)?)|(breaking)/
+const minor = /^(minor|feature)/
+
+function resolveType(message) {
+    if (major.test(message)) {
+        return 'major'
+    }
+    if (minor.test(message)) {
+        return 'minor'
+    }
+
+    return 'patch'
+}
 
 async function getTags(page = 1) {
     const githubToken = core.getInput('GITHUB_TOKEN')
@@ -26,7 +39,10 @@ async function run() {
 
         const tags = await getTags()
 
-        const releaseType = core.getInput('semantic_release')
+        let releaseType = core.getInput('release_type');
+        if (releaseType === '' ) {
+            releaseType = resolveType(core.getInput('message'))
+        }
 
         if (tags.size === 0) {
             const initVersion = core.getInput('init_version')

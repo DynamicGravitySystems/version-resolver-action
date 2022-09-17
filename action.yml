@@ -4,7 +4,10 @@ inputs:
   init_version:
     required: false
     description: 'The initial version to return when the repo has no existing version tags'
-  semantic_release:
+  message:
+    required: false
+    description: 'If provided, attempts to parse the release type from the commit message'
+  release_type:
     required: false
     description: 'Explicitly specify the release type, major, minor, or patch. If not specified, minor is assumed'
   GITHUB_TOKEN:
